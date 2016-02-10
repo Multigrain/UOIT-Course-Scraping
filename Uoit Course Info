@@ -1,0 +1,31 @@
+https://ssbp.mycampus.ca/prod/bwckschd.p_get_crse_unsec
+?TRM=U
+term_in=201601      Term          : Year Semester
+sel_subj=dummy
+sel_day=dummy
+sel_schd=dummy
+sel_insm=dummy
+sel_camp=dummy
+sel_levl=dummy
+sel_sess=dummy
+sel_instr=dummy
+sel_ptrm=dummy
+sel_attr=dummy
+sel_subj=ALSU       Faculty Code
+sel_crse=           Course Number
+sel_title=          Title
+sel_schd=%25        Schedule Type
+sel_insm=%25        Instructional Method
+sel_from_cred=      Credit Range A to B : A
+sel_to_cred=        Credit Range A to B : B
+sel_camp=%25        Campus        : %25 - All, UON - North Campus, UOD - Downtown Campus, UOG - Off Campus Georgian
+begin_hh=0          Start Hour    : 0
+begin_mi=0          Start Min     : 0
+begin_ap=a          Start AM/PM   : AM
+end_hh=0            End Hour      : 0
+end_mi=0            End Min       : 0
+end_ap=a            End AM/PM     : AM
+sel_day=m           Day           : m - Monday, t - Tuesday, w - Wednesday, r - Thursday, f - Friday, s - Saturday, u - Sunday OPTIONAL
+
+
+https://ssbp.mycampus.ca/prod/bwckschd.p_get_crse_unsec?TRM=U&term_in=201601&sel_subj=dummy&sel_day=dummy&sel_schd=dummy&sel_insm=dummy&sel_camp=dummy&sel_levl=dummy&sel_sess=dummy&sel_instr=dummy&sel_ptrm=dummy&sel_attr=dummy&sel_subj=ALSU&sel_crse=&sel_title=&sel_schd=%25&sel_insm=%25&sel_from_cred=&sel_to_cred=&sel_camp=%25&begin_hh=0&begin_mi=0&begin_ap=a&end_hh=0&end_mi=0&end_ap=a
