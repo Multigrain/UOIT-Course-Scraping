@@ -1,4 +1,6 @@
-https://ssbp.mycampus.ca/prod/bwckschd.p_get_crse_unsec
+https://ssbp.mycampus.ca/prod/bwckschd.p_get_crse_unsec  - OLD ENDPOINT
+https://ssbp.mycampus.ca/prod_uoit/bwckschd.p_get_crse_unsec
+
 ?TRM=U
 term_in=201601      Term          : Year Semester
 sel_subj=dummy

@@ -1,12 +1,28 @@
 from bs4 import BeautifulSoup
 import re
 import urllib
-#import os FOR TESTING
 from expressions import *
+
+def findSubjects(year, term):
+    url = 'https://ssbp.mycampus.ca/prod_uoit/bwckgens.p_proc_term_date?p_calling_proc=bwckschd.p_disp_dyn_sched&TRM=U&p_term='
+    url += year
+    url += term
+
+    #Loads the select menu containing current subjects
+    webpage_response = readURL(url)
+    subject_list = webpage_response.find('select', {'id' : 'subj_id'})
+
+    #Extracts subjects
+    subjects = []
+    for subject in subject_list.find_all('option'):
+        matches = re.search(regex_subject, str(subject.text.strip()))
+        subjects.append(matches.group(1))
+
+    return subjects
 
 
 def generateURL(year, semester, subject):
-    url = 'https://ssbp.mycampus.ca/prod/bwckschd.p_get_crse_unsec'
+    url = 'https://ssbp.mycampus.ca/prod_uoit/bwckschd.p_get_crse_unsec'
     url += '?TRM=U&term_in='
     url += year
     url += semester
@@ -15,19 +31,24 @@ def generateURL(year, semester, subject):
     url += '&sel_crse=&sel_title=&sel_schd=%25&sel_insm=%25&sel_from_cred=&sel_to_cred=&sel_camp=%25&begin_hh=0&begin_mi=0&begin_ap=a&end_hh=0&end_mi=0&end_ap=a'
     return url
 
-def readURL(url):
-    webpage = BeautifulSoup(urllib.urlopen(url).read(), 'html5lib')
+def readURL(url, local_data = False):
+    webpage = ""
+
+    #Used to load local copy incase mycampus is down
+    if local_data:
+        with open('Class Schedule Listing.html', 'r') as myfile:
+            webpage=myfile.read()
+    else:
+        webpage = urllib.urlopen(url).read()
+
+    webpage = BeautifulSoup(webpage, 'html5lib')
+
     return webpage
 
 def parseCourseHeader(webpage_contents, course_info):
     for course in webpage_contents.find_all('th', {'class' : "ddheader", 'scope' : "col"}):
         current_course = {}
         matches = re.search(regex_course_header, str(course.next))
-
-        #TESTING
-        #if not matches:
-        #    print str(course.next)
-        #    os.system('read -s -n 1 -p "Press any key to continue..."')
 
         current_course['title'] = matches.group(1)
         current_course['crn'] = matches.group(2)
@@ -103,20 +124,19 @@ def parseCourseInfo(webpage_contents, course_info):
                         current_session['finish_day'] = 'TBA'
 
                     current_session['type'] = str(elements[6].text.strip())
-                    current_session['instructor'] = str(elements[7].text.strip())
-
-                    #sets course instructors if lecture
-                    if current_session['type'] == 'Lecture':
-                        course_info[course_index]['instructor'] = current_session['instructor']
+                    current_session['instructors'] = str(elements[7].text.strip())
 
                     course_info[course_index]['sessions'].append(current_session)
 
+                #sets course instructors from session
+                course_info[course_index]['instructors'] = course_info[course_index]['sessions'][0]['instructors']
+
             course_index += 1
 
-def parseCourses(year, sem, subject):
+def parseCourses(year, sem, subject, local_data = False):
     courses = []
 
-    webpage_response = readURL(generateURL(year, sem, subject))
+    webpage_response = readURL(generateURL(year, sem, subject), local_data)
 
     main_table = webpage_response.find('table', {'class' : 'datadisplaytable', 'summary' : 'This layout table is used to present the sections found'})
 

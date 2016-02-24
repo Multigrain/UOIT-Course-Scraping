@@ -1,3 +1,5 @@
+#Outdated, Removing in future commits, see mysql_crud & database_init
+
 import MySQLdb
 from mycampus_parser import *
 from dateutil import parser
@@ -12,7 +14,7 @@ type_key = {'Lecture & Lab' : 1, 'Lecture' : 1, 'Thesis/Project' : 1, 'Seminar' 
 courses = parseCourses(cur_year, cur_sem, cur_subject)
 
 #Opens DB Connection
-db = MySQLdb.connect(host="localhost", user="root", passwd="Root123**", db="test")
+db = MySQLdb.connect(host="mycampus.ctlmvn6rw3p8.us-east-1.rds.amazonaws.com", port=3306, user="root", passwd="Root123**", db="mycampus")
 
 #itterates over courses
 for course in courses:
