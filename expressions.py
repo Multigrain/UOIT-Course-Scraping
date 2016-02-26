@@ -1,7 +1,7 @@
 #Regular Expressions to be used for web scraping
 regex_course_header = '^(.*) - (\d*) - ([A-Z]*) (\d*[a-zA-Z]) - (\d*)$'
 
-regex_course_term = '^([a-zA-Z]*) ([a-zA-Z]*) (\d*)$'
+regex_course_term = '^([a-zA-Z]*) ([a-zA-Z/]*) (\d*)$'
 
 regex_course_registration = '^([a-zA-Z]* \d{1,2}, \d{4}) to ([a-zA-Z]* \d{1,2}, \d{4})$'
 

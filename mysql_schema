@@ -1,3 +1,4 @@
+#Outdated, Removing in future commits, see schema.sql
 CREATE TABLE Courses (
   subject CHAR(4) NOT NULL,
   code CHAR(5) NOT NULL,

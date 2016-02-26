@@ -40,7 +40,7 @@ for subject in subjects:
 
         #Inserts course and section data
         course_id = dbCrud.insertCourse(db, course['subject'], course['code'], course['title'], course['year'], term_key[course['term']], course_levels)
-        section_id = dbCrud.insertSection(db, course_id, course['sessions'][0]['type'], course['section'], instructors)
+        section_id = dbCrud.insertSection(db, course_id, course['sessions'][0]['type'], course['section'], instructors, course['crn'])
         dbCrud.insertAvailability(db, section_id, int(course['capacity']), int(course['actual']), int(course['remaining']))
 
         for session in course['sessions']:

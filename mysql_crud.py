@@ -225,7 +225,7 @@ def insertCourseLevel(db, course_id, level_id):
 
     return course_level_id
 
-def insertSection(db, course_id, course_type, section, instructors):
+def insertSection(db, course_id, course_type, section, instructors, crn):
     cur = db.cursor()
 
     #Checks if section exists before insert
@@ -244,12 +244,12 @@ def insertSection(db, course_id, course_type, section, instructors):
 
     #Inserts new section if doesn't exist, otherwise update old section
     if section_id == 0:
-        cur.execute("INSERT INTO Sections(course_id, type_id, section) VALUES(%s, %s, %s)",
-                    (course_id, type_id, section))
+        cur.execute("INSERT INTO Sections(course_id, type_id, crn, section) VALUES(%s, %s, %s, %s)",
+                    (course_id, type_id, crn, section))
         section_id = cur.lastrowid
     else:
-        cur.execute("UPDATE Sections SET course_id = %s, type_id = %s, section = %s WHERE id = %s",
-                    (course_id, type_id, section, section_id))
+        cur.execute("UPDATE Sections SET course_id = %s, type_id = %s, section = %s, crn = %s WHERE id = %s",
+                    (course_id, type_id, section, crn, section_id))
 
     #Inserts new instructors to course if doesn't exist
     section_instructor_ids = []
